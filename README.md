@@ -8,7 +8,6 @@ In the sample video we have balls, confusingly shown as squares, with sizes that
 The red square is shown at the position of the uniform gravity source, which we have move around the world randomly throughout the run.
 I'd see small balls fly around very quickly, somewhat detracting from the viewing expericence. So, I threw in a quirk that collisions with the world border will also rob the ball of 10% of its velocity.
 
-
 -----
 
 Features:
@@ -17,15 +16,27 @@ Features:
 - Outputs a video file of the simulation run
 - Point source constant gravity field
 
-To really consider this done I would want to add these things:
+These core things are still missing:
 - [ ] gravity for all particles (+ gravity that depends on distance from the mass) <-- this really seems like the most important thing left hanging
 - [ ] multiple gravity sources
-- [ ] multi-threading collision detection & updating
+- [ ] multi-threading collision detection, updating, and drawing <-- I feel like this would be really cool and probably enable really big N's
 - [ ] real simultaneous time-stepping <-- currently balls are updated one at a time
+
+These things would be nice:
 - [ ] better visualization including really circles, a live display, and visualizing gravity fields
+- [ ] a history line, or short tail for each ball
+- [ ] command line arguments 
+- [ ] colored balls
 
 
 -----
 ## A few more videos
 
-![2balls](assets/2balls.gif)
+<!-- ![2balls](assets/2balls.gif) -->
+100 balls, random initial velocity
+
+![100balls](assets/100balls.gif)
+
+100 balls, initial velocity orthogonal to acceleration due to gravity
+
+![100balls_orth](assets/100balls_orth.gif)
