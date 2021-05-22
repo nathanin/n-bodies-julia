@@ -16,11 +16,14 @@ Features:
 - Outputs a video file of the simulation run
 - Point source constant gravity field
 
+Each update:
+1. detect collisions and update velocities based on the collision results
+2. move each ball, taking care of balls with trajectories carrying them off world
+
 These core things are still missing:
 - [ ] gravity for all particles (+ gravity that depends on distance from the mass) <-- this really seems like the most important thing left hanging
 - [ ] multiple gravity sources
 - [ ] multi-threading collision detection, updating, and drawing <-- I feel like this would be really cool and probably enable really big N's
-- [ ] real simultaneous time-stepping <-- currently balls are updated one at a time
 
 These things would be nice:
 - [ ] better visualization including really circles, a live display, and visualizing gravity fields

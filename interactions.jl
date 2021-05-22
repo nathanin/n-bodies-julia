@@ -10,10 +10,12 @@ function checkCollide(a::Ball, b::Ball)
     return d < (a.r + b.r) ? true : false
 end
 
-function findCollisions(balls::Array, collisions::Matrix)
+function findCollisions!(balls::Array, collisions::Matrix)
     n_balls = length(balls)
-    # @info "Finding collisions" n_balls
     new_collisions = zeros(Bool, size(collisions))
+
+    # for k in 1:round(Int, n_balls * (n_balls/2) - (n_balls/2))
+    # end
 
     for i in 1:n_balls
         a = balls[i]
@@ -25,7 +27,7 @@ function findCollisions(balls::Array, collisions::Matrix)
         end
     end
 
-    return new_collisions
+    return new_collisions, collisions
 end
 
 #https://cnx.org/contents/U34hHQg1@1/Two-Body-Collision-Problem

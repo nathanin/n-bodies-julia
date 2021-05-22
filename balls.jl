@@ -26,39 +26,35 @@ end
 
 function moveBall!(ball, world::World, dt::Float64=1.0)
     # Update velocity based on acceleration
-    dvx = ball.a.x*dt
-    dvy = ball.a.y*dt
-    ball.v.x += dvx
-    ball.v.y += dvy
+    vx = ball.v.x + ball.a.x*dt
+    vy = ball.v.y + ball.a.y*dt
 
     # Get the current velocity and position step
-    dx = ball.v.x*dt
-    dy = ball.v.y*dt
-    newx = ball.x + dx
-    newy = ball.y + dy
+    newx = ball.x + vx*dt
+    newy = ball.y + vy*dt
     if !(between(newx, world.bounds) & between(newy, world.bounds))
-        ball.v.x = -ball.v.x*0.9
-        ball.v.y = -ball.v.y*0.9
-        dx = ball.v.x*dt
-        dy = ball.v.y*dt
-        newx = ball.x + dx
-        newy = ball.y + dy
+        vx = -vx*0.9
+        vy = -vy*0.9
+        newx = ball.x + vx*dt
+        newy = ball.y + vy*dt
         # @warn "Saved ball from falling off the world" ball
     end
-    ball.x = newx
-    ball.y = newy
     
     # Update acceleration vector
     gx, gy = calcGravity((newx,newy), world.gravity)
     ball.a.x = gx
     ball.a.y = gy
-
-    # @info "Moved ball " ball.name dx dy ball.x ball.y
+    ball.v.x = vx
+    ball.v.y = vy
+    ball.x = newx
+    ball.y = newy
 end
 
+# We've already set parameters according to t-1. 
+# This updates positions for each ball individually
 function moveAllBalls!(balls::Array, world::World, dt::Float64=1.0)
-    for ball in balls
-        moveBall!(ball, world, dt)
+    Threads.@threads for i in 1:length(balls)
+        moveBall!(balls[i], world, dt)
     end
 end
 
